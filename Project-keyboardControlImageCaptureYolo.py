@@ -34,7 +34,7 @@ global img
 # Inicia o steam da câmera
 me.streamon()
 
-out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc(*'MJPG'), 5, (640,480))
+out = cv2.VideoWriter('Resources/Videos/output.avi', cv2.VideoWriter_fourcc(*'MJPG'), 5, (640,480))
 
 
 # inia os dados para o yolo
