@@ -14,6 +14,10 @@ import cv2
 import numpy as np
 import os
 
+# Variável para testar decolagem e pouso
+voando = False
+run = True
+
 # Inicia o módulo de capturar o teclado com pygame
 kp.init()
 
@@ -30,6 +34,7 @@ global img
 # Inicia o steam da câmera
 me.streamon()
 
+out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc(*'MJPG'), 5, (640,480))
 
 
 # inia os dados para o yolo
@@ -105,9 +110,9 @@ def detect(frame):
 
             # plotar retângulo e texto das classes detectadas no frame atual
             color_picked = [int(c) for c in colors[class_ids[i]]]
-            cv2.rectangle(frame, (x, y), (x + w, y + h), color_picked, 2)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), color_picked, 1)
             text = "{}: {:.4f}".format(labels[class_ids[i]], confidences[i])
-            cv2.putText(frame, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color_picked, 2)
+            cv2.putText(frame, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.3, color_picked, 1)
             
     return frame
 #**************************************************************************************
@@ -125,7 +130,10 @@ def getKeyboardInput():
     # yv: yaw velocity
     
     lr, fb, ud, yv = 0, 0, 0, 0
-    speed = 50
+    speed = 30
+    
+    global voando
+    global run
     
     # Captura dos movimentos
     if kp.getKey('LEFT'):
@@ -150,10 +158,21 @@ def getKeyboardInput():
         
     # Captura das teclas de takeoff e land
     if kp.getKey('e'):
-        me.takeoff()
+        if voando == False:
+            print('decolando')
+            me.takeoff()
+            voando = True
+        else: pass
+                
         
     if kp.getKey('q'):
-        me.land()
+        if voando == True:
+            print('pousando...')
+            me.land()
+            voando = False
+            out.release()
+            run = False
+        else: pass
         
     # Captura da tecla de salvar foto
     if kp.getKey('z'):
@@ -165,7 +184,7 @@ def getKeyboardInput():
 
 
 # Loop de execução principal
-while True:
+while run:
     
     # Captura as teclas
     vals = getKeyboardInput()
@@ -175,17 +194,21 @@ while True:
     
     # Captra o frame
     img = me.get_frame_read().frame
-    #img = cv2.resize(img, (360, 240))
+    img = cv2.resize(img, (640,480))
     
     img = detect(img)
     
-    time.sleep(0.01)
+    #time.sleep(0.01)
+    
+    out.write(img)
+    
     cv2.imshow('image from Drone', img)
-        
-    c = cv2.waitKey(1)
-    if c == 27:
-        me.land()
-        time.sleep(2)
+    
+    if cv2.waitKey(1) & 0xFF == ord('k'):
+        #me.land()
+        #time.sleep(0.1)
+        #out.release()
         break
     
 cv2.destroyAllWindows()
+out.release()
