@@ -1,5 +1,8 @@
 # tello-course
 
-Meus códigos do curso de Murtaza.
+## Meus códigos do curso de programação com Python para o drone Tello oferecido por Murtaza Hassan.
 
-O codigo implementado com yolov4 é o: Project-keyboardControlImageCaptureYolo.py
+
+### Códigos:
+
+- O codigo implementado com yolov4 é o: Project-keyboardControlImageCaptureYolo.py

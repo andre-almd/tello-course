@@ -29,6 +29,7 @@ aInterval = aSpeed * interval
 # #####################################################################################
 
 x, y = 500, 500
+
 ang = 0
 yaw = 0
 
@@ -45,7 +46,8 @@ def getKeyboardInput():
     speed = 15
     aSpeed = 50
     
-    dist = 0
+    d = 0
+    
     global ang
     global yaw
     global x
@@ -53,20 +55,20 @@ def getKeyboardInput():
     
     if kp.getKey('LEFT'):
         lr = -speed
-        dist = dInterval
+        d = dInterval
         ang = -180
     elif kp.getKey('RIGHT'):
         lr = speed
-        dist = -dInterval
+        d = -dInterval
         ang = 180
         
     if kp.getKey('UP'):
         fb = speed
-        dist = dInterval
+        d = dInterval
         ang = 270
     elif kp.getKey('DOWN'):
         fb = -speed
-        dist = -dInterval
+        d = -dInterval
         ang = -90
         
     if kp.getKey('w'):
@@ -90,8 +92,9 @@ def getKeyboardInput():
     sleep(interval)
     
     ang += yaw
-    x += int(dist * math.cos(math.radians(ang)))
-    y += int(dist * math.sin(math.radians(ang)))
+    
+    x += int(d * math.cos(math.radians(ang)))
+    y += int(d * math.sin(math.radians(ang)))
         
     return [lr, fb, ud, yv, x, y]
 
