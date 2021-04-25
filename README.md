@@ -1,10 +1,12 @@
 # tello-course
 
-## Meus códigos do curso de programação com Python para o drone Tello oferecido por Murtaza Hassan.
+## My codes from tello course offered by Murtaza Hassan.
 
 
-### Códigos:
+### Codes:
 
-- Todos os códigos estão disponíveis na página oficial do curso: https://www.murtazahassan.com/courses/drone-programming/
-- Alguns códigos meus estão implementados com opções extras e comentários em português
-- O codigo implementado com yolov4 é o: keyboardControlImageCaptureYolo.py
+- All of the codes are available at the official page of the course: [click here](https://www.murtazahassan.com/courses/drone-programming/)
+
+- Some of my codes are implemented with extra options and comments in portuguese
+
+- The code with Yolov4 is: keyboardControlImageCaptureYolo.py
