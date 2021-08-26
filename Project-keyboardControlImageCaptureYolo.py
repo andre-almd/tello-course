@@ -25,8 +25,8 @@ kp.init()
 me = tello.Tello()
 
 # Conecta com o drone e checa nível de bateria
-me.connect()
-print(f'Battery: {me.get_battery()}')
+me.connect(False)
+#print(f'Battery: {me.get_battery()}')
 
 # Cria a variável para salvar as imagens
 global img
@@ -58,7 +58,10 @@ with open(os.path.sep.join([MODEL_BASE_PATH, 'coco.names'])) as f:
 print("[+] Carregando o modelo YOLO treinado no COCO dataset...")
 net = cv2.dnn.readNetFromDarknet(
     os.path.sep.join([MODEL_BASE_PATH, 'yolov4.cfg']),
-    os.path.sep.join(['../../darknet', 'yolov4.weights']))
+    os.path.sep.join(['C:\\Users\81019188\Documents\yolo gpu', 'yolov4.weights']))
+
+net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
+net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
 # extrair layers não conectados da arquitetura YOLO
 ln = net.getLayerNames()

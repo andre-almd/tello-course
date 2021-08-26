@@ -15,7 +15,7 @@ me = tello.Tello()
 
 me.connect()
 
-print(f'Bateia: {me.get_battery()}')
+#print(f'Bateia: {me.get_battery()}')
 
 me.streamon()
 
